@@ -1,0 +1,16 @@
+version: '3'
+services:
+  petshopdb:
+    image: "postgres"
+    environment:
+      POSTGRES_DB: PetShopDb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    volumes:
+      - petshop-postgres-data-volume:/var/lib/postgresql/data
+
+volumes:
+  petshop-postgres-data-volume:
+
