@@ -3,7 +3,7 @@
 Demo of a multi-module Spring Boot project using layered architecture.<br/>
 
 Technologies: 
-[] PostgreSQL
-[] Docker
-[] Swagger
-[] Liquibase
+- [x] PostgreSQL
+- [x] Docker
+- [x] Swagger
+- [x] Liquibase
