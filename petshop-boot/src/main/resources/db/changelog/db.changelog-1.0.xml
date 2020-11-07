@@ -118,4 +118,56 @@
                 referencedTableSchemaName="public"
                 validate="true"/>
     </changeSet>
+<!--    <changeSet id="8" author="jo2o">-->
+<!--        <createSequence cacheSize="50"-->
+<!--                cycle="false"-->
+<!--                dataType="bigint"-->
+<!--                incrementBy="1"-->
+<!--                maxValue="1000000000"-->
+<!--                minValue="1"-->
+<!--                ordered="true"-->
+<!--                schemaName="public"-->
+<!--                sequenceName="credential_id_seq"-->
+<!--                startValue="1"/>-->
+<!--        <createSequence cacheSize="50"-->
+<!--                cycle="false"-->
+<!--                dataType="bigint"-->
+<!--                incrementBy="1"-->
+<!--                maxValue="1000000000"-->
+<!--                minValue="1"-->
+<!--                ordered="true"-->
+<!--                schemaName="public"-->
+<!--                sequenceName="order_id_seq"-->
+<!--                startValue="1"/>-->
+<!--        <createSequence cacheSize="50"-->
+<!--                cycle="false"-->
+<!--                dataType="bigint"-->
+<!--                incrementBy="1"-->
+<!--                maxValue="1000000000"-->
+<!--                minValue="1"-->
+<!--                ordered="true"-->
+<!--                schemaName="public"-->
+<!--                sequenceName="ordereditem_id_seq"-->
+<!--                startValue="1"/>-->
+<!--        <createSequence cacheSize="50"-->
+<!--                cycle="false"-->
+<!--                dataType="bigint"-->
+<!--                incrementBy="1"-->
+<!--                maxValue="1000000000"-->
+<!--                minValue="1"-->
+<!--                ordered="true"-->
+<!--                schemaName="public"-->
+<!--                sequenceName="product_id_seq"-->
+<!--                startValue="1"/>-->
+<!--        <createSequence cacheSize="50"-->
+<!--                cycle="false"-->
+<!--                dataType="bigint"-->
+<!--                incrementBy="1"-->
+<!--                maxValue="1000000000"-->
+<!--                minValue="1"-->
+<!--                ordered="true"-->
+<!--                schemaName="public"-->
+<!--                sequenceName="user_id_seq"-->
+<!--                startValue="1"/>-->
+<!--    </changeSet>-->
 </databaseChangeLog>

@@ -1,5 +1,7 @@
 package sk.gw.jo2o.petshop.entity;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 import javax.persistence.*;
 
 import lombok.*;
@@ -12,6 +14,8 @@ import lombok.*;
 public class OrderedItem {
 
     @Id
+    @GeneratedValue(strategy = SEQUENCE, generator = "ordereditem_seq_gen")
+    @SequenceGenerator(name = "ordereditem_seq_gen", sequenceName = "ordered_item_id_seq", allocationSize = 1)
     private long id;
 
     private short count;
