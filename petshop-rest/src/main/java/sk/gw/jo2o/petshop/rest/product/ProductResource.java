@@ -1,11 +1,11 @@
 package sk.gw.jo2o.petshop.rest.product;
 
-import java.util.List;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import sk.gw.jo2o.petshop.service.ProductService;
+import sk.gw.jo2o.petshop.shopping.service.ProductService;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +16,14 @@ class ProductResource {
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductResponse> getProducts() {
-        return productMapper.toResponsePage(productService.getProducts());
+    ProductResponse getProduct(@PathVariable("id") long id) {
+        return productMapper.toResponse(productService.getProduct(id));
     }
+
+    @PostMapping
+    ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
+        productService.save(productMapper.toEntity(productRequest));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

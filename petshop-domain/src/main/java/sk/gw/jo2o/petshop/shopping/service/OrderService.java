@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.service;
+package sk.gw.jo2o.petshop.shopping.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sk.gw.jo2o.petshop.model.Product;
-import sk.gw.jo2o.petshop.repo.ProductRepository;
+import sk.gw.jo2o.petshop.repo.OrderRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService {
+public class OrderService {
 
-    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+
 
     public List<Product> getProducts() {
         return new ArrayList<>();

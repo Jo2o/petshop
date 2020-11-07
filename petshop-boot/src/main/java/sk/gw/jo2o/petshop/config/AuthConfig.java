@@ -1,6 +1,5 @@
 package sk.gw.jo2o.petshop.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +12,7 @@ import lombok.SneakyThrows;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] WHITELIST = {"/v2/api-docs", "/swagger*/**", "**"};
 
@@ -30,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-//    @Bean
     private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

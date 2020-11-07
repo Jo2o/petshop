@@ -1,20 +1,25 @@
 package sk.gw.jo2o.petshop.rest.auth;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import sk.gw.jo2o.petshop.rest.product.ProductResponse;
+import sk.gw.jo2o.petshop.auth.service.AuthService;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 class AuthResource {
 
-    @GetMapping
-    public List<ProductResponse> getProducts() {
-        return new ArrayList<>();
+    private final AuthService authService;
+
+    @PostMapping("/signup")
+    public String signUp(AuthRequest authRequest) {
+//        return authService.signUp(authRequest);
+        return "signup";
+    }
+
+    @PostMapping("/signin")
+    public String signIn(@RequestParam String username, @RequestParam String password) {
+        return authService.signIn(username, password);
     }
 }

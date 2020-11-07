@@ -6,9 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductResponse {
-
-    long id;
+public class ProductRequest {
 
     String name;
 
