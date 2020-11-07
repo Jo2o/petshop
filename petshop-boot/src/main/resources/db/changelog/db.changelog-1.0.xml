@@ -55,6 +55,7 @@
             <column name="id" type="int"><constraints nullable="false" primaryKey="true" unique="true"/></column>
             <column name="price" type="int"><constraints nullable="true"/></column>
             <column name="created" type="timestamp"><constraints nullable="false"/></column>
+            <column name="user_id" type="int"><constraints nullable="false"/></column>
         </createTable>
         <addAutoIncrement
                 columnName="id"
@@ -75,6 +76,18 @@
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
                 referencedTableName="order"
+                referencedTableSchemaName="public"
+                validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                baseTableName="order"
+                baseTableSchemaName="public"
+                constraintName="fk_user_id"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="user"
                 referencedTableSchemaName="public"
                 validate="true"/>
     </changeSet>
