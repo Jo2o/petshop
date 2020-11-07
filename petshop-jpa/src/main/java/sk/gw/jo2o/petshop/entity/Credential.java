@@ -9,19 +9,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Product {
+public class Credential {
 
     @Id
     private long id;
 
-    private String name;
+    private String password;
 
-    private String categories;
+    private String roles;
 
-    private int price;
-
-    private String description;
-
-    private String imageUrls;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

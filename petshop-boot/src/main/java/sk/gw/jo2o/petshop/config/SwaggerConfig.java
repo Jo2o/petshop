@@ -2,6 +2,7 @@ package sk.gw.jo2o.petshop.config;
 
 import static java.util.Collections.emptyList;
 import static springfox.documentation.builders.PathSelectors.regex;
+import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .paths(regex("/.*"))
+                .apis(basePackage("sk.gw.jo2o.petshop.rest"))
                 .build()
                 .apiInfo(createApiInfo());
     }

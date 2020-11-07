@@ -9,13 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>petshop-domain</artifactId>
+    <artifactId>petshop-security</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>sk.gw.jo2o</groupId>
-            <artifactId>petshop-jpa</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

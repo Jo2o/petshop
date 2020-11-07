@@ -11,14 +11,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "ORDER")
 public class Order {
 
     @Id
     private long id;
 
-    private int totalPrice;
+    private int price;
 
     private LocalDateTime created;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

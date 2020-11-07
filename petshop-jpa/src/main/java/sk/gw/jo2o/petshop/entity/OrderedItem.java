@@ -9,18 +9,19 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "ORDER_ITEM")
-public class OrderItem {
+public class OrderedItem {
 
     @Id
     private long id;
 
-    private int count;
+    private short count;
 
     private int price;
 
+    private long productId;
+
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
 }
