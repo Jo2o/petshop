@@ -1,5 +1,9 @@
 package sk.gw.jo2o.petshop.rest.product;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,18 +20,7 @@ class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())
-                .price(priceMapper.toStr(product.getPrice()))
-                .description(product.getDescription())
-                .gallery(product.getImageUrls())
-                .build();
-    }
-
-    public ProductResponse toPublicResponse(Product product) {
-        return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .categories(product.getCategories())
-                .price(priceMapper.toStr(product.getPrice()))
+                .price(priceMapper.validateAndMapToString(product.getPrice()))
                 .description(product.getDescription())
                 .gallery(product.getImageUrls())
                 .build();
@@ -37,7 +30,24 @@ class ProductMapper {
         return Product.builder()
                 .name(productRequest.getName())
                 .categories(productRequest.getCategories())
-                .price(priceMapper.toInt(productRequest.getPrice()))
+                .price(priceMapper.validateAndMapToInt(productRequest.getPrice()))
+                .description(productRequest.getDescription())
+                .imageUrls(productRequest.getGallery())
+                .build();
+    }
+
+    public List<ProductPublicResponse> toResponseList(List<Product> products) {
+        return products.stream()
+                .map(this::toPublicResponse)
+                .collect(toList());
+    }
+
+    private ProductPublicResponse toPublicResponse(Product product) {
+        return ProductPublicResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .categories(product.getCategories())
+                .price(priceMapper.validateAndMapToString(product.getPrice()))
                 .build();
     }
 

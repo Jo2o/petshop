@@ -1,5 +1,7 @@
 package sk.gw.jo2o.petshop.shopping.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -13,9 +15,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Product getProduct(long id) {
+    public Product find(long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new PetShopNotFoundException("Cannot find product with ID: " + id));
+    }
+
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     public void save(Product product) {

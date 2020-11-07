@@ -1,5 +1,7 @@
 package sk.gw.jo2o.petshop.rest.product;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,16 @@ class ProductResource {
     private final ProductService productService;
 
     @GetMapping
-    ProductResponse getProduct(@PathVariable("id") long id) {
-        return productMapper.toResponse(productService.getProduct(id));
+    List<ProductPublicResponse> getProduct() {
+        return productMapper.toResponseList(productService.findAll());
     }
 
-    @PostMapping
+    @GetMapping("/{id}")
+    ProductResponse getProduct(@PathVariable("id") long id) {
+        return productMapper.toResponse(productService.find(id));
+    }
+
+    @PostMapping("/product")
     ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
         productService.save(productMapper.toEntity(productRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
