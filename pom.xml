@@ -25,8 +25,9 @@
 
     <properties>
         <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <swagger.version>2.9.2</swagger.version>
-<!--        <liquibase.version>3.8.1</liquibase.version>-->
     </properties>
 
     <dependencyManagement>
