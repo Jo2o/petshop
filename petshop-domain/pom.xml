@@ -16,6 +16,10 @@
             <groupId>sk.gw.jo2o</groupId>
             <artifactId>petshop-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

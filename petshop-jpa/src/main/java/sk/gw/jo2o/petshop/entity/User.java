@@ -12,6 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "user", schema = "public")
 public class User {
 
     @Id

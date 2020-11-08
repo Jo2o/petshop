@@ -1,28 +1,55 @@
 package sk.gw.jo2o.petshop.config;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import sk.gw.jo2o.petshop.auth.service.UserDetailsServiceImpl;
+import sk.gw.jo2o.petshop.auth.service.*;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] WHITELIST = {"/v2/api-docs", "/swagger*/**", "**"};
+    private static final String[] WHITELIST = {
+            "/v2/api-docs",
+            "/swagger*/**",
+            "/v1/api/test/**",
+            "/v1/api/auth/**"
+    , "**"};
 
+    private final AuthEntryPoint authEntryPoint;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
+
+//    @Override
+//    public void configure(WebSecurity webSecurity) {
+//        webSecurity.ignoring().antMatchers(WHITELIST);
+//    }
+
+    @Bean
+    public AuthFilter authFilter() {
+        return new AuthFilter();
+    }
+
     @Override
-    public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers(WHITELIST);
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(STATELESS).and()
+                .authorizeRequests().antMatchers().permitAll()
+                .antMatchers(WHITELIST).permitAll()
+                .anyRequest().authenticated();
+        http.addFilterBefore(authFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -38,7 +65,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

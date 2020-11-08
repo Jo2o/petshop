@@ -21,6 +21,4 @@ public class RegistrationData {
 
     String password;
 
-    Set<String> roles;
-
 }
