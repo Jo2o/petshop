@@ -22,16 +22,16 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] WHITELIST = {
             // allow swagger
+            "/swagger-ui.html",
+            "/swagger-resources/**",
             "/v2/api-docs",
             "/configuration/ui",
-            "/swagger*/**",
             "/configuration/security",
             "/webjars/**",
+
             // allow public api
-            "/v1/api/test/**",
-            "/v1/api/auth/**"
-    };
-//    , "**"};
+            "/v1/auth/**",
+            "/v1/products/**"};
 
     private final AuthEntryPoint authEntryPoint;
     private final UserDetailsServiceImpl userDetailsServiceImpl;

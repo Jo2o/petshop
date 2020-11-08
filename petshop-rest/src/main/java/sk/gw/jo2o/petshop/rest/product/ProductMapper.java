@@ -16,6 +16,12 @@ class ProductMapper {
 
     private final PriceMapper priceMapper;
 
+    public List<ProductResponse> toAdminResponseList(List<Product> products) {
+        return products.stream()
+                .map(this::toResponse)
+                .collect(toList());
+    }
+
     public ProductResponse toResponse(Product product) {
         return ProductResponse.builder()
                 .id(product.getId())
@@ -27,17 +33,7 @@ class ProductMapper {
                 .build();
     }
 
-    public Product toEntity(ProductRequest productRequest) {
-        return Product.builder()
-                .name(productRequest.getName())
-                .categories(productRequest.getCategories())
-                .price(priceMapper.validateAndMapToInt(productRequest.getPrice()))
-                .description(productRequest.getDescription())
-                .imageUrls(productRequest.getGallery())
-                .build();
-    }
-
-    public List<ProductListItemResponse> toResponseList(List<Product> products) {
+    public List<ProductListItemResponse> toPublicResponseList(List<Product> products) {
         return products.stream()
                 .map(this::toPublicResponse)
                 .collect(toList());
@@ -49,6 +45,16 @@ class ProductMapper {
                 .name(product.getName())
                 .categories(product.getCategories())
                 .price(priceMapper.validateAndMapToString(product.getPrice()))
+                .build();
+    }
+
+    public Product toEntity(ProductRequest productRequest) {
+        return Product.builder()
+                .name(productRequest.getName())
+                .categories(productRequest.getCategories())
+                .price(priceMapper.validateAndMapToInt(productRequest.getPrice()))
+                .description(productRequest.getDescription())
+                .imageUrls(productRequest.getGallery())
                 .build();
     }
 

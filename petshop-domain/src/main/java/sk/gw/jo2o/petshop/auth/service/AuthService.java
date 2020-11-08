@@ -13,8 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import sk.gw.jo2o.petshop.auth.model.JwtData;
-import sk.gw.jo2o.petshop.auth.model.RegistrationData;
+import sk.gw.jo2o.petshop.auth.model.*;
 import sk.gw.jo2o.petshop.entity.Credential;
 import sk.gw.jo2o.petshop.entity.User;
 import sk.gw.jo2o.petshop.exception.PetShopAuthException;
@@ -65,6 +64,15 @@ public class AuthService {
                 .build());
 
         return "User registered successfully!";
+    }
+
+    public boolean checkRole(Role role) {
+//        String loggedInUserRole = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).getCredential().getRoles();
+//        if (role.name().equalsIgnoreCase(loggedInUserRole)) {
+//            return true;
+//        }
+//        return false;
+        return true;
     }
 
 }
