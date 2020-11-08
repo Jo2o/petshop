@@ -25,7 +25,7 @@ class ProductResourceV1 {
     private final ProductService productService;
 
     @GetMapping("/products")
-    public Page<ProductResponse> getProductsForPublic(@RequestParam(required = false) String priceFrom,
+    public Page<ProductListItemResponse> getProductsForPublic(@RequestParam(required = false) String priceFrom,
             @RequestParam(required = false) String priceTo,
             @RequestParam(required = false) String nameStartsWith,
             @RequestParam(required = false) Integer pageIndex,
