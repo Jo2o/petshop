@@ -1,7 +1,7 @@
 package sk.gw.jo2o.petshop.auth.service;
 
 import static java.lang.Boolean.TRUE;
-import static sk.gw.jo2o.petshop.auth.model.enums.Role.USER;
+import static sk.gw.jo2o.petshop.auth.model.Role.USER;
 
 import java.util.List;
 

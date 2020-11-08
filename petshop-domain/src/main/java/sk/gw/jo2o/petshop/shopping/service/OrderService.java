@@ -1,6 +1,5 @@
 package sk.gw.jo2o.petshop.shopping.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class OrderService {
     private final OrderedItemRepository orderedItemRepository;
 
 
-    public List<Order> getProducts() {
+    public List<Order> getOrders() {
         return orderRepository.findAll();
     }
 

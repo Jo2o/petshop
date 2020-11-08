@@ -2,8 +2,6 @@ package sk.gw.jo2o.petshop.auth.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import java.util.Set;
-
 import org.springframework.data.annotation.Immutable;
 
 import lombok.*;

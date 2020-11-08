@@ -18,17 +18,17 @@ class ProductResourceV1 {
     private final ProductService productService;
 
     @GetMapping
-    List<ProductPublicResponse> getPublicProducts() {
+    public List<ProductPublicResponse> getPublicProducts() {
         return productMapper.toResponseList(productService.findAll());
     }
 
     @GetMapping("/{id}")
-    ProductResponse getProduct(@PathVariable("id") long id) {
+    public ProductResponse getProduct(@PathVariable("id") long id) {
         return productMapper.toResponse(productService.find(id));
     }
 
     @PostMapping("/product")
-    ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
         productService.save(productMapper.toEntity(productRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

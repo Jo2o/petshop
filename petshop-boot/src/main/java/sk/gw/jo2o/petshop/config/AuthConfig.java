@@ -21,20 +21,20 @@ import sk.gw.jo2o.petshop.auth.service.*;
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] WHITELIST = {
+            // allow swagger
             "/v2/api-docs",
+            "/configuration/ui",
             "/swagger*/**",
+            "/configuration/security",
+            "/webjars/**",
+            // allow public api
             "/v1/api/test/**",
             "/v1/api/auth/**"
-    , "**"};
+    };
+//    , "**"};
 
     private final AuthEntryPoint authEntryPoint;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-
-
-//    @Override
-//    public void configure(WebSecurity webSecurity) {
-//        webSecurity.ignoring().antMatchers(WHITELIST);
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
