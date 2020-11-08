@@ -18,12 +18,12 @@ class ProductResourceV1 {
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductPublicResponse> getPublicProducts() {
-        return productMapper.toResponseList(productService.findAll());
+    public List<ProductListItemResponse> getPublicProducts(@RequestParam String priceFrom, @RequestParam String priceTo, @RequestParam String nameStartsWith) {
+        return productMapper.toResponseList(productService.find(priceFrom, priceTo, nameStartsWith));
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProduct(@PathVariable("id") long id) {
+    public ProductResponse getPublicProduct(@PathVariable("id") long id) {
         return productMapper.toResponse(productService.find(id));
     }
 

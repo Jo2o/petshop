@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPublicResponse {
+public class ProductListItemResponse {
 
     long id;
 

@@ -37,14 +37,14 @@ class ProductMapper {
                 .build();
     }
 
-    public List<ProductPublicResponse> toResponseList(List<Product> products) {
+    public List<ProductListItemResponse> toResponseList(List<Product> products) {
         return products.stream()
                 .map(this::toPublicResponse)
                 .collect(toList());
     }
 
-    private ProductPublicResponse toPublicResponse(Product product) {
-        return ProductPublicResponse.builder()
+    private ProductListItemResponse toPublicResponse(Product product) {
+        return ProductListItemResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())

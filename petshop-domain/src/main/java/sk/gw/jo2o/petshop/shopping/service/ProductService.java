@@ -20,12 +20,12 @@ public class ProductService {
                 .orElseThrow(() -> new PetShopNotFoundException("Cannot find product with ID: " + id));
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
-    }
-
     public void save(Product product) {
         productRepository.save(product);
+    }
+
+    public List<Product> find(String priceFrom, String priceTo, String nameStartsWith) {
+        return productRepository.findAll();
     }
 
 }

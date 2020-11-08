@@ -37,14 +37,13 @@ public class SwaggerConfig {
 
     private SecurityContext createSecurityContext() {
         return SecurityContext.builder()
-                .securityReferences(defaultAuth())
+                .securityReferences(createDefaultAuth())
                 .build();
     }
 
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+    private List<SecurityReference> createDefaultAuth() {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
+        authorizationScopes[0] = new AuthorizationScope("global", "accessEverything");
         return List.of(new SecurityReference("JWT", authorizationScopes));
     }
 
