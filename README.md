@@ -1,9 +1,20 @@
 # Petshop
+
+## Assignment
+
+### About
 ***Simple e-shop for pet lovers***.<br/>
 Demo of a multi-module Spring Boot project using layered architecture.<br/>
+Implementation of a very simply e-shop application selling pet products with an administration API.<br/>
 
-Technologies: 
-- [x] PostgreSQL
+### API
+
+
+
+Technologies used: 
 - [x] Docker
-- [x] Swagger
+- [x] PostgreSQL
 - [x] Liquibase
+- [x] Swagger
+- [x] JWT
+
