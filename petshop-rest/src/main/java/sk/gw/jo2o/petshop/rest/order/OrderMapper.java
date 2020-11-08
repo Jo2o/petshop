@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.product;
+package sk.gw.jo2o.petshop.rest.order;
 
 import static java.util.stream.Collectors.toList;
 
@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sk.gw.jo2o.petshop.entity.Product;
 import sk.gw.jo2o.petshop.rest.common.PriceMapper;
+import sk.gw.jo2o.petshop.rest.product.*;
 
 @Service
 @RequiredArgsConstructor
-class ProductMapper {
+class OrderMapper {
 
     private final PriceMapper priceMapper;
 

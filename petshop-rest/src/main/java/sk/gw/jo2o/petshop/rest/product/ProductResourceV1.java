@@ -11,14 +11,14 @@ import sk.gw.jo2o.petshop.shopping.service.ProductService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/products")
-class ProductResource {
+@RequestMapping("/v1/products")
+class ProductResourceV1 {
 
     private final ProductMapper productMapper;
     private final ProductService productService;
 
     @GetMapping
-    List<ProductPublicResponse> getProduct() {
+    List<ProductPublicResponse> getPublicProducts() {
         return productMapper.toResponseList(productService.findAll());
     }
 

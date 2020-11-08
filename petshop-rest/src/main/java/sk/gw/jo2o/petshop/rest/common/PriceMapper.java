@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.product;
+package sk.gw.jo2o.petshop.rest.common;
 
 import static java.math.BigDecimal.ZERO;
 

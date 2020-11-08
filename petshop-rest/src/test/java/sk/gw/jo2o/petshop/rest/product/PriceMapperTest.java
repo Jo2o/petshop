@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import sk.gw.jo2o.petshop.exception.PetShopNotValidException;
+import sk.gw.jo2o.petshop.rest.common.PriceMapper;
 
 @ExtendWith(MockitoExtension.class)
 class PriceMapperTest {

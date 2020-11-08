@@ -6,4 +6,8 @@ import sk.gw.jo2o.petshop.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User findByUsername(String username);
+
+    User findByEmail(String username);
+
 }
