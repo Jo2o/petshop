@@ -2,6 +2,8 @@ package sk.gw.jo2o.petshop.shopping.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,9 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderedItemRepository orderedItemRepository;
 
+    public Page<Order> getPagedOrders(PageRequest pageRequest) {
+        return orderRepository.findAll(pageRequest);
+    }
 
     public List<Order> getOrders() {
         return orderRepository.findAll();

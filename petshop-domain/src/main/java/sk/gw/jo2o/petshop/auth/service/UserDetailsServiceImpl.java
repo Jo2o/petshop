@@ -18,7 +18,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         sk.gw.jo2o.petshop.entity.User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new PetShopNotFoundException("Cannot find user with username: " + username));
-
         return UserDetailsImpl.build(user);
     }
 

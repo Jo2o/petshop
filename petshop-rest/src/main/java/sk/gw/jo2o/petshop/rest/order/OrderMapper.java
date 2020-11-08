@@ -4,9 +4,11 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import sk.gw.jo2o.petshop.entity.Order;
 import sk.gw.jo2o.petshop.entity.Product;
 import sk.gw.jo2o.petshop.rest.common.PriceMapper;
 import sk.gw.jo2o.petshop.rest.product.*;
@@ -17,14 +19,14 @@ class OrderMapper {
 
     private final PriceMapper priceMapper;
 
-    public ProductResponse toResponse(Product product) {
-        return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .categories(product.getCategories())
-                .price(priceMapper.validateAndMapToString(product.getPrice()))
-                .description(product.getDescription())
-                .gallery(product.getImageUrls())
+    public OrderResponse toResponse(Order order) {
+
+
+        return OrderResponse.builder()
+//                .id(order.getId())
+//                .created(order.getCreated())
+//                .totalPrice(priceMapper.validateAndMapToString(order.getPrice()))
+//                .orderedItems(order)
                 .build();
     }
 
@@ -38,19 +40,8 @@ class OrderMapper {
                 .build();
     }
 
-    public List<ProductListItemResponse> toResponseList(List<Product> products) {
-        return products.stream()
-                .map(this::toPublicResponse)
-                .collect(toList());
-    }
 
-    private ProductListItemResponse toPublicResponse(Product product) {
-        return ProductListItemResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .categories(product.getCategories())
-                .price(priceMapper.validateAndMapToString(product.getPrice()))
-                .build();
-    }
+//    public Page<OrderResponse> toResponse(Page<Order> pagedOrders) {
+//    }
 
 }

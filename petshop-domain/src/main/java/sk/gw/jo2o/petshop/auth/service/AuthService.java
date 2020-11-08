@@ -66,18 +66,16 @@ public class AuthService {
         return "User registered successfully!";
     }
 
-    public boolean checkRole(Role role) {
-        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userDetailsImpl.getAuthorities())
-
-
-        ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()//getAuthorities()
-//        String loggedInUserRole = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).getCredential().getRoles();
-//        if (role.name().equalsIgnoreCase(loggedInUserRole)) {
-//            return true;
-//        }
-//        return false;
-        return true;
+    public void checkRole(Role role) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetailsImpl) {
+            UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
+            if (userDetailsImpl.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equalsIgnoreCase(role.name()))) {
+                return;
+            }
+        }
+        throw new PetShopAuthException("Insufficient privileges!");
     }
 
 }

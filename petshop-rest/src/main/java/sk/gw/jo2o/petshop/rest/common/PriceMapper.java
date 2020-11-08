@@ -6,9 +6,11 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import sk.gw.jo2o.petshop.exception.PetShopNotValidException;
 
 @Service
+@RequiredArgsConstructor
 public class PriceMapper {
 
     private static final int DECIMAL_PLACES = 2;
@@ -21,7 +23,10 @@ public class PriceMapper {
         return BigDecimal.valueOf(price).movePointLeft(DECIMAL_PLACES).toString();
     }
 
-    public int validateAndMapToInt(String price) {
+    public Integer validateAndMapToInt(String price) {
+        if (price == null) {
+            return null;
+        }
         BigDecimal bigDecimalPrice;
         try {
             bigDecimalPrice = new BigDecimal(price).stripTrailingZeros();

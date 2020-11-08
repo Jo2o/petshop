@@ -8,6 +8,6 @@ import sk.gw.jo2o.petshop.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Page<Product> findByPriceBetween(int priceFrom, int priceTo, Pageable pageable);
+    Page<Product> findByNameStartsWithAndPriceBetween(String nameStart, int priceFrom, int priceTo, Pageable pageable);
 
 }

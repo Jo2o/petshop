@@ -4,6 +4,8 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,12 @@ class ProductMapper {
                 .description(product.getDescription())
                 .gallery(product.getImageUrls())
                 .build();
+    }
+
+    public Page<ProductResponse> toPagedResponse(Page<Product> productsPage) {
+        return new PageImpl<>(productsPage.getContent().stream()
+                .map(this::toResponse)
+                .collect(toList()));
     }
 
     public List<ProductListItemResponse> toPublicResponseList(List<Product> products) {

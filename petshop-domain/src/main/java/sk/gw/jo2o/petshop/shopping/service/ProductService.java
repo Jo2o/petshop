@@ -1,7 +1,11 @@
 package sk.gw.jo2o.petshop.shopping.service;
 
-import java.util.List;
+import static java.util.Objects.requireNonNullElse;
 
+import java.util.Objects;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -24,8 +28,30 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<Product> find(String priceFrom, String priceTo, String nameStartsWith) {
-        return productRepository.findAll();
+    public Page<Product> getPagedProducts(String nameStartsWith, Integer priceFrom, Integer priceTo, PageRequest pageRequest) {
+        return productRepository.findByNameStartsWithAndPriceBetween(
+                processNameStartsWith(nameStartsWith),
+                processPriceFrom(priceFrom),
+                processPriceTo(priceTo),
+                pageRequest);
     }
+
+    public Page<Product> getPagedProducts(PageRequest pageRequest) {
+        return productRepository.findAll(pageRequest);
+    }
+
+    private String processNameStartsWith(String nameStartsWith) {
+        return requireNonNullElse(nameStartsWith, "");
+    }
+
+    private int processPriceFrom(Integer priceFrom) {
+        return requireNonNullElse(priceFrom, 0);
+    }
+
+    private int processPriceTo(Integer priceTo) {
+        return requireNonNullElse(priceTo, Integer.MAX_VALUE);
+    }
+
+
 
 }

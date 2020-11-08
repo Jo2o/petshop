@@ -14,7 +14,7 @@ public class OrderResponse {
 
     private long id;
 
-    private int price;
+    private String totalPrice;
 
     private LocalDateTime created;
 

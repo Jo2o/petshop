@@ -3,8 +3,7 @@ package sk.gw.jo2o.petshop.rest.error;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import sk.gw.jo2o.petshop.exception.PetShopNotFoundException;
-import sk.gw.jo2o.petshop.exception.PetShopNotValidException;
+import sk.gw.jo2o.petshop.exception.*;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -18,6 +17,12 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PetShopNotValidException.class)
     ErrorResponse notValid(PetShopNotValidException e) {
+        return ErrorResponse.builder().message(e.getMessage()).build();
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(PetShopAuthException.class)
+    ErrorResponse notAuthorized(PetShopAuthException e) {
         return ErrorResponse.builder().message(e.getMessage()).build();
     }
 

@@ -2,14 +2,15 @@ package sk.gw.jo2o.petshop.rest.product;
 
 import static sk.gw.jo2o.petshop.auth.model.Role.ADMIN;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import sk.gw.jo2o.petshop.auth.service.AuthService;
+import sk.gw.jo2o.petshop.rest.common.PageService;
+import sk.gw.jo2o.petshop.rest.common.PriceMapper;
 import sk.gw.jo2o.petshop.shopping.service.ProductService;
 
 @RestController
@@ -17,20 +18,30 @@ import sk.gw.jo2o.petshop.shopping.service.ProductService;
 @RequestMapping("/v1")
 class ProductResourceV1 {
 
+    private final PriceMapper priceMapper;
+    private final PageService pageService;
     private final AuthService authService;
     private final ProductMapper productMapper;
     private final ProductService productService;
 
     @GetMapping("/products")
-    public List<ProductListItemResponse> getPublicProducts(@RequestParam String priceFrom, @RequestParam String priceTo, @RequestParam String nameStartsWith) {
-        return productMapper.toPublicResponseList(productService.find(priceFrom, priceTo, nameStartsWith));
+    public Page<ProductResponse> getProductsForPublic(@RequestParam(required = false) String priceFrom,
+            @RequestParam(required = false) String priceTo,
+            @RequestParam(required = false) String nameStartsWith,
+            @RequestParam(required = false) Integer pageIndex,
+            @RequestParam(required = false) Integer pageSize) {
+        return productMapper.toPagedResponse(
+                productService.getPagedProducts(nameStartsWith,
+                        priceMapper.validateAndMapToInt(priceFrom),
+                        priceMapper.validateAndMapToInt(priceTo),
+                        pageService.createPageRequest(pageIndex, pageSize)));
     }
 
-    @GetMapping("/admin-products")
-    public List<ProductResponse> getAdminProducts(@RequestParam String priceFrom, @RequestParam String priceTo, @RequestParam String nameStartsWith) {
-        authService.checkRole(ADMIN);
-        return productMapper.toAdminResponseList(productService.find(priceFrom, priceTo, nameStartsWith));
-    }
+//    @GetMapping("/admin-products")
+//    public Page<ProductResponse> getProductsForAdmin(@RequestParam int pageIndex, @RequestParam int pageSize) {
+//        authService.checkRole(ADMIN);
+//        return productMapper.toAdminResponseList(productService.getPagedProducts(pageService.createPageRequest(pageIndex, pageSize)));
+//    }
 
     @GetMapping("/products/{id}")
     public ProductResponse getPublicProduct(@PathVariable("id") long id) {
@@ -39,6 +50,7 @@ class ProductResourceV1 {
 
     @PostMapping("/products/product")
     public ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
+        authService.checkRole(ADMIN);
         productService.save(productMapper.toEntity(productRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
