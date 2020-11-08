@@ -36,11 +36,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 //        webSecurity.ignoring().antMatchers(WHITELIST);
 //    }
 
-    @Bean
-    public AuthFilter authFilter() {
-        return new AuthFilter();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -50,6 +45,11 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(WHITELIST).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public AuthFilter authFilter() {
+        return new AuthFilter();
     }
 
     @Override

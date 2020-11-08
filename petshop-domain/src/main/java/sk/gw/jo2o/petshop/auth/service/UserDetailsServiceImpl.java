@@ -1,5 +1,7 @@
 package sk.gw.jo2o.petshop.auth.service;
 
+import static sk.gw.jo2o.petshop.auth.model.enums.Role.USER;
+
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return User.withUsername(username)
                 .password(user.getCredential().getPassword())
+                .roles(USER.name())
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

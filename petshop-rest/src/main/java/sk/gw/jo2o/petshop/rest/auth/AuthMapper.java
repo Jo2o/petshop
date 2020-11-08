@@ -14,7 +14,6 @@ public class AuthMapper {
                 .username(authRequest.getUsername())
                 .password(authRequest.getPassword())
                 .email(authRequest.getEmail())
-                .roles(authRequest.getRoles())
                 .build();
     }
 

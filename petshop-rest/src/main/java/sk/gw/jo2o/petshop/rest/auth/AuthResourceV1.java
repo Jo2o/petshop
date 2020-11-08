@@ -25,4 +25,5 @@ class AuthResourceV1 {
     public ResponseEntity<JwtData> login(@RequestParam String username, @RequestParam String password) {
         return ResponseEntity.ok(authService.login(username, password));
     }
+
 }

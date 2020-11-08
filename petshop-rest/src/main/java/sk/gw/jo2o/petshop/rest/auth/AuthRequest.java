@@ -1,7 +1,5 @@
 package sk.gw.jo2o.petshop.rest.auth;
 
-import java.util.Set;
-
 import lombok.*;
 
 @Data
@@ -15,7 +13,5 @@ public class AuthRequest {
     private String email;
 
     private String password;
-
-    private Set<String> roles;
 
 }
