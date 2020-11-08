@@ -1,7 +1,8 @@
 package sk.gw.jo2o.petshop.auth.service;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = Arrays.stream(user.getCredential().getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         return new UserDetailsImpl(user.getId(),
                 user.getUsername(),
@@ -42,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

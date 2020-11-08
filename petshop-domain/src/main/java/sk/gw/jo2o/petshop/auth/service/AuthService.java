@@ -67,6 +67,11 @@ public class AuthService {
     }
 
     public boolean checkRole(Role role) {
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetailsImpl.getAuthorities())
+
+
+        ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()//getAuthorities()
 //        String loggedInUserRole = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).getCredential().getRoles();
 //        if (role.name().equalsIgnoreCase(loggedInUserRole)) {
 //            return true;

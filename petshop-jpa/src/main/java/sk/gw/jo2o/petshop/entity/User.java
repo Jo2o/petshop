@@ -1,6 +1,5 @@
 package sk.gw.jo2o.petshop.entity;
 
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import javax.persistence.*;
@@ -24,7 +23,7 @@ public class User {
 
     private String email;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne
     @JoinColumn(name = "credential_id")
     private Credential credential;
 
