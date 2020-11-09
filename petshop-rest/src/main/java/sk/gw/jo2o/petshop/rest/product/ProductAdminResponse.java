@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductListItemResponse {
+public class ProductAdminResponse {
 
     long id;
 
@@ -15,5 +15,9 @@ public class ProductListItemResponse {
     String categories;
 
     String price;
+
+    String description;
+
+    String gallery;
 
 }

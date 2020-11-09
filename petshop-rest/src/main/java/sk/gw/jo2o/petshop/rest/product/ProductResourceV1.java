@@ -25,27 +25,31 @@ class ProductResourceV1 {
     private final ProductService productService;
 
     @GetMapping("/products")
-    public Page<ProductListItemResponse> getProductsForPublic(@RequestParam(required = false) String priceFrom,
+    public Page<ProductPublicResponse> getProductsForPublic(
+            @RequestParam(required = false) String priceFrom,
             @RequestParam(required = false) String priceTo,
             @RequestParam(required = false) String nameStartsWith,
             @RequestParam(required = false) Integer pageIndex,
             @RequestParam(required = false) Integer pageSize) {
-        return productMapper.toPagedResponse(
+        return productMapper.toPublicPagedResponse(
                 productService.getPagedProducts(nameStartsWith,
                         priceMapper.validateAndMapToInt(priceFrom),
                         priceMapper.validateAndMapToInt(priceTo),
                         pageService.createPageRequest(pageIndex, pageSize)));
     }
 
-//    @GetMapping("/admin-products")
-//    public Page<ProductResponse> getProductsForAdmin(@RequestParam int pageIndex, @RequestParam int pageSize) {
-//        authService.checkRole(ADMIN);
-//        return productMapper.toAdminResponseList(productService.getPagedProducts(pageService.createPageRequest(pageIndex, pageSize)));
-//    }
+    @GetMapping("/admin-products")
+    public Page<ProductAdminResponse> getProductsForAdmin(
+            @RequestParam(required = false) Integer pageIndex,
+            @RequestParam(required = false) Integer pageSize) {
+        authService.checkRole(ADMIN);
+        return productMapper.toAdminPageResponseList(
+                productService.getPagedProducts(pageService.createPageRequest(pageIndex, pageSize)));
+    }
 
     @GetMapping("/products/{id}")
-    public ProductResponse getPublicProduct(@PathVariable("id") long id) {
-        return productMapper.toResponse(productService.find(id));
+    public ProductAdminResponse getPublicProduct(@PathVariable("id") long id) {
+        return productMapper.toAdminResponse(productService.find(id));
     }
 
     @PostMapping("/products/product")

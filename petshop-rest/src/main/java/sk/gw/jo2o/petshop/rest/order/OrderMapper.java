@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,10 @@ class OrderMapper {
     private final PriceMapper priceMapper;
 
     public OrderResponse toResponse(Order order) {
-
-
         return OrderResponse.builder()
-//                .id(order.getId())
-//                .created(order.getCreated())
-//                .totalPrice(priceMapper.validateAndMapToString(order.getPrice()))
+                .id(order.getId())
+                .created(order.getCreated())
+                .totalPrice(priceMapper.validateAndMapToString(order.getPrice()))
 //                .orderedItems(order)
                 .build();
     }
@@ -40,8 +39,12 @@ class OrderMapper {
                 .build();
     }
 
+    public Page<OrderResponse> toPageResponseList(Page<Order> ordersPage) {
+        List<OrderResponse> orderResponses = ordersPage.getContent().stream()
+                .map(this::toResponse)
+                .collect(toList());
 
-//    public Page<OrderResponse> toResponse(Page<Order> pagedOrders) {
-//    }
+        return new PageImpl<>(orderResponses, ordersPage.getPageable(), ordersPage.getTotalPages());
+    }
 
 }

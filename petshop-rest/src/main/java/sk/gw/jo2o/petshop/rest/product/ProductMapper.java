@@ -23,14 +23,24 @@ class ProductMapper {
 
     private final PriceMapper priceMapper;
 
-    public List<ProductResponse> toAdminResponseList(List<Product> products) {
-        return products.stream()
-                .map(this::toResponse)
+    public Page<ProductAdminResponse> toAdminPageResponseList(Page<Product> productsPage) {
+        List<ProductAdminResponse> productAdminResponses = productsPage.getContent().stream()
+                .map(this::toAdminResponse)
                 .collect(toList());
+
+        return new PageImpl<>(productAdminResponses, productsPage.getPageable(), productsPage.getTotalPages());
     }
 
-    public ProductResponse toResponse(Product product) {
-        return ProductResponse.builder()
+    public Page<ProductPublicResponse> toPublicPagedResponse(Page<Product> productsPage) {
+        List<ProductPublicResponse> productPublicResponses = productsPage.getContent().stream()
+                .map(this::toPublicResponse)
+                .collect(toList());
+
+        return new PageImpl<>(productPublicResponses, productsPage.getPageable(), productsPage.getTotalPages());
+    }
+
+    public ProductAdminResponse toAdminResponse(Product product) {
+        return ProductAdminResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())
@@ -40,20 +50,8 @@ class ProductMapper {
                 .build();
     }
 
-    public Page<ProductListItemResponse> toPagedResponse(Page<Product> productsPage) {
-        return new PageImpl<>(productsPage.getContent().stream()
-                .map(this::toPublicResponse)
-                .collect(toList()));
-    }
-
-    public List<ProductListItemResponse> toPublicResponseList(List<Product> products) {
-        return products.stream()
-                .map(this::toPublicResponse)
-                .collect(toList());
-    }
-
-    private ProductListItemResponse toPublicResponse(Product product) {
-        return ProductListItemResponse.builder()
+    private ProductPublicResponse toPublicResponse(Product product) {
+        return ProductPublicResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())
@@ -78,14 +76,14 @@ class ProductMapper {
         String trimmedCategories = categories.replace(" ", "");
         String[] requestCategoriesArray = trimmedCategories.split("[,|;]");
 
-        String commaConcatenatedAnimalCategoriesNames = Arrays.stream(AnimalCategory.values())
+        String commaConcatenatedCategories = Arrays.stream(AnimalCategory.values())
                 .map(AnimalCategory::name)
                 .collect(joining(","));
 
         StringBuilder stringBuilder = new StringBuilder();
 
         for (String requestCategory : requestCategoriesArray) {
-            if (("," + commaConcatenatedAnimalCategoriesNames + ",").contains("," + requestCategory.toUpperCase() + ",")) {
+            if (("," + commaConcatenatedCategories + ",").contains("," + requestCategory.toUpperCase() + ",")) {
                 stringBuilder.append(requestCategory.toUpperCase());
                 stringBuilder.append(",");
             } else {
