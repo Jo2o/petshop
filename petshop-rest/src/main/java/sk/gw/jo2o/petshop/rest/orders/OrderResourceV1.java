@@ -1,5 +1,8 @@
 package sk.gw.jo2o.petshop.rest.orders;
 
+import static sk.gw.jo2o.petshop.auth.model.Role.ADMIN;
+import static sk.gw.jo2o.petshop.auth.model.Role.USER;
+
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -24,17 +27,20 @@ class OrderResourceV1 {
     private final AuthService authService;
     private final OrderMapper orderMapper;
     private final OrderService orderService;
+    private final OrderedItemMapper orderedItemMapper;
 
     @GetMapping("/user-orders")
     public List<OrderResponse> getOrdersForUser(@RequestParam long userId) {
-//        authService.checkRole(ADMIN);
+        authService.checkRole(ADMIN, USER);
+        authService.checkUser(userId);
         return orderMapper.toListResponse(orderService.getUserOrders(userId));
     }
 
     @PostMapping("/user-orders/create-order")
     public ResponseEntity createOrder(@RequestParam long userId, @RequestBody OrderRequest orderRequest) {
-//        authService.checkRole(ADMIN);
-        orderService.save(orderMapper.toEntity(orderRequest));
+        authService.checkRole(ADMIN, USER);
+        authService.checkUser(userId);
+        orderService.save(orderedItemMapper.toEntityList(orderRequest), userId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -42,7 +48,7 @@ class OrderResourceV1 {
     public Page<OrderResponse> getOrdersForAdmin(
             @RequestParam(required = false) Integer pageIndex,
             @RequestParam(required = false) Integer pageSize) {
-//        authService.checkRole(ADMIN);
+        authService.checkRole(ADMIN);
         return orderMapper.toPageResponse(
                 orderService.getPagedOrders(pageService.createPageRequest(pageIndex, pageSize)));
     }

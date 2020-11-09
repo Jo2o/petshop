@@ -1,5 +1,7 @@
 package sk.gw.jo2o.petshop.rest.products;
 
+import static sk.gw.jo2o.petshop.auth.model.Role.ADMIN;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +42,7 @@ class ProductResourceV1 {
     public Page<ProductResponse> getProductsForAdmin(
             @RequestParam(required = false) Integer pageIndex,
             @RequestParam(required = false) Integer pageSize) {
-//        authService.checkRole(ADMIN);
+        authService.checkRole(ADMIN);
         return productMapper.toAdminPageResponse(
                 productService.getPagedProducts(pageService.createPageRequest(pageIndex, pageSize)));
     }
@@ -52,7 +54,7 @@ class ProductResourceV1 {
 
     @PostMapping("/admin-products/product")
     public ResponseEntity createProduct(@RequestBody ProductRequest productRequest) {
-//        authService.checkRole(ADMIN);
+        authService.checkRole(ADMIN);
         productService.save(productMapper.toEntity(productRequest));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

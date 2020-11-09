@@ -1,6 +1,7 @@
 package sk.gw.jo2o.petshop.auth.service;
 
 import static java.lang.Boolean.TRUE;
+import static sk.gw.jo2o.petshop.auth.model.Role.ADMIN;
 import static sk.gw.jo2o.petshop.auth.model.Role.USER;
 
 import java.util.List;
@@ -8,11 +9,13 @@ import java.util.List;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import sk.gw.jo2o.petshop.auth.model.*;
 import sk.gw.jo2o.petshop.entity.Credential;
 import sk.gw.jo2o.petshop.entity.User;
@@ -20,6 +23,7 @@ import sk.gw.jo2o.petshop.exception.PetShopAuthException;
 import sk.gw.jo2o.petshop.repo.CredentialRepository;
 import sk.gw.jo2o.petshop.repo.UserRepository;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -66,16 +70,36 @@ public class AuthService {
         return "User registered successfully!";
     }
 
-    public void checkRole(Role role) {
+    public void checkRole(Role... roles) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetailsImpl) {
+            UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
+            log.info("{} | {} | {}", userDetailsImpl.getUsername(), userDetailsImpl.getEmail(), userDetailsImpl.getAuthorities());
+            for (Role role : roles) {
+                if (userDetailsImpl.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .anyMatch(authority -> authority.equalsIgnoreCase(role.name()))) {
+                    return;
+                }
+            }
+        }
+        throw new PetShopAuthException("Insufficient privileges!");
+    }
+
+    public void checkUser(long userId) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetailsImpl) {
             UserDetailsImpl userDetailsImpl = (UserDetailsImpl) principal;
             if (userDetailsImpl.getAuthorities().stream()
-                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equalsIgnoreCase(role.name()))) {
+                    .map(GrantedAuthority::getAuthority)
+                    .anyMatch(auth -> auth.equalsIgnoreCase(ADMIN.name()))) {
+                return;
+            }
+            if (userDetailsImpl.getId() == userId) {
                 return;
             }
         }
-        throw new PetShopAuthException("Insufficient privileges!");
+        throw new PetShopAuthException("Wrong user!");
     }
 
 }

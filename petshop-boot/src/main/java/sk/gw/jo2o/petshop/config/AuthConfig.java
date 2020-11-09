@@ -1,5 +1,6 @@
 package sk.gw.jo2o.petshop.config;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import org.springframework.context.annotation.Bean;
@@ -40,11 +41,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(STATELESS).and()
-
                 .authorizeRequests()
-                .antMatchers().permitAll()
-
                 .antMatchers(WHITELIST).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authFilter(), UsernamePasswordAuthenticationFilter.class);
