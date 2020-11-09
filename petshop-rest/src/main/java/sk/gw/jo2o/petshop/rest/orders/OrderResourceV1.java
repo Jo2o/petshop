@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import sk.gw.jo2o.petshop.auth.service.AuthService;
-
 import sk.gw.jo2o.petshop.rest.PageService;
-import sk.gw.jo2o.petshop.rest.common.PriceMapper;
 import sk.gw.jo2o.petshop.shopping.services.OrderService;
 
 @RestController
@@ -22,7 +20,6 @@ import sk.gw.jo2o.petshop.shopping.services.OrderService;
 @RequestMapping("/v1/orders")
 class OrderResourceV1 {
 
-    private final PriceMapper priceMapper;
     private final PageService pageService;
     private final AuthService authService;
     private final OrderMapper orderMapper;

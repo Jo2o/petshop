@@ -13,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "order", schema = "public")
 public class Order {
 
     @Id

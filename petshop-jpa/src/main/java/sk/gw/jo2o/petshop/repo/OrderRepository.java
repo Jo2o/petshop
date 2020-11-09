@@ -10,4 +10,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByUser_Id(long userId);
 
+   @Override
+   Order save(Order order);
+
 }
