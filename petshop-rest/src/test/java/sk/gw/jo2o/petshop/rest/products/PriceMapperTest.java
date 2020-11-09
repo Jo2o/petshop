@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.product;
+package sk.gw.jo2o.petshop.rest.products;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -6,13 +6,18 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import sk.gw.jo2o.petshop.exception.PetShopNotValidException;
 import sk.gw.jo2o.petshop.rest.common.PriceMapper;
+import sk.gw.jo2o.petshop.rest.common.PriceValidator;
 
 @ExtendWith(MockitoExtension.class)
 class PriceMapperTest {
+
+    @Spy
+    private PriceValidator priceValidator;
 
     @InjectMocks
     private PriceMapper priceMapper;

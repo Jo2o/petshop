@@ -1,8 +1,6 @@
-package sk.gw.jo2o.petshop.shopping.service;
+package sk.gw.jo2o.petshop.shopping.services;
 
 import static java.util.Objects.requireNonNullElse;
-
-import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

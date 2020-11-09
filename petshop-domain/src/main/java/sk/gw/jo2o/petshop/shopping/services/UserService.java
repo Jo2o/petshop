@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.shopping.service;
+package sk.gw.jo2o.petshop.shopping.services;
 
 import java.util.List;
 

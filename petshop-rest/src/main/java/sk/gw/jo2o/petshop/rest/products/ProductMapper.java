@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.product;
+package sk.gw.jo2o.petshop.rest.products;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import sk.gw.jo2o.petshop.entity.Product;
 import sk.gw.jo2o.petshop.exception.PetShopNotValidException;
 import sk.gw.jo2o.petshop.rest.common.PriceMapper;
-import sk.gw.jo2o.petshop.shopping.enums.AnimalCategory;
+import sk.gw.jo2o.petshop.shopping.model.AnimalCategory;
 
 @Service
 @RequiredArgsConstructor
@@ -23,24 +23,24 @@ class ProductMapper {
 
     private final PriceMapper priceMapper;
 
-    public Page<ProductAdminResponse> toAdminPageResponseList(Page<Product> productsPage) {
-        List<ProductAdminResponse> productAdminResponses = productsPage.getContent().stream()
+    public Page<ProductResponse> toAdminPageResponse(Page<Product> productsPage) {
+        List<ProductResponse> productRespons = productsPage.getContent().stream()
                 .map(this::toAdminResponse)
                 .collect(toList());
 
-        return new PageImpl<>(productAdminResponses, productsPage.getPageable(), productsPage.getTotalPages());
+        return new PageImpl<>(productRespons, productsPage.getPageable(), productsPage.getTotalPages());
     }
 
-    public Page<ProductPublicResponse> toPublicPagedResponse(Page<Product> productsPage) {
-        List<ProductPublicResponse> productPublicResponses = productsPage.getContent().stream()
+    public Page<ProductShortResponse> toPublicPageResponse(Page<Product> productsPage) {
+        List<ProductShortResponse> productShortRespons = productsPage.getContent().stream()
                 .map(this::toPublicResponse)
                 .collect(toList());
 
-        return new PageImpl<>(productPublicResponses, productsPage.getPageable(), productsPage.getTotalPages());
+        return new PageImpl<>(productShortRespons, productsPage.getPageable(), productsPage.getTotalPages());
     }
 
-    public ProductAdminResponse toAdminResponse(Product product) {
-        return ProductAdminResponse.builder()
+    public ProductResponse toAdminResponse(Product product) {
+        return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())
@@ -50,8 +50,8 @@ class ProductMapper {
                 .build();
     }
 
-    private ProductPublicResponse toPublicResponse(Product product) {
-        return ProductPublicResponse.builder()
+    private ProductShortResponse toPublicResponse(Product product) {
+        return ProductShortResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .categories(product.getCategories())

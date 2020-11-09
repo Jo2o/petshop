@@ -21,7 +21,7 @@ import sk.gw.jo2o.petshop.auth.service.*;
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] WHITELIST = {
-            // allow swagger
+            /* SWAGGER */
             "/swagger-ui.html",
             "/swagger-resources/**",
             "/v2/api-docs",
@@ -29,9 +29,9 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
             "/configuration/security",
             "/webjars/**",
 
-            // allow public api
+            /* PUBLIC API */
             "/v1/auth/**",
-            "/v1/products/**"};
+            "/v1/products/public-products/**"};
 
     private final AuthEntryPoint authEntryPoint;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
@@ -41,7 +41,10 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(STATELESS).and()
-                .authorizeRequests().antMatchers().permitAll()
+
+                .authorizeRequests()
+                .antMatchers().permitAll()
+
                 .antMatchers(WHITELIST).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authFilter(), UsernamePasswordAuthenticationFilter.class);

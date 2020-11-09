@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.shopping.service;
+package sk.gw.jo2o.petshop.shopping.services;
 
 import java.util.List;
 
@@ -24,6 +24,14 @@ public class OrderService {
 
     public List<Order> getOrders() {
         return orderRepository.findAll();
+    }
+
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
+
+    public List<Order> getUserOrders(long userId) {
+        return orderRepository.findByUser_Id(userId);
     }
 
 }

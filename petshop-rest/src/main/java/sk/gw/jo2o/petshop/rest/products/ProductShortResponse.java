@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.product;
+package sk.gw.jo2o.petshop.rest.products;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPublicResponse {
+public class ProductShortResponse {
 
     long id;
 

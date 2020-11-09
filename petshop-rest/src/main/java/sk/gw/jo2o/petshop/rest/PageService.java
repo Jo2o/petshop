@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.common;
+package sk.gw.jo2o.petshop.rest;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

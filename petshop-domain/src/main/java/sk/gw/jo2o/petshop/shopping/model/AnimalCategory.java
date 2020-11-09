@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.shopping.enums;
+package sk.gw.jo2o.petshop.shopping.model;
 
 public enum AnimalCategory {
 

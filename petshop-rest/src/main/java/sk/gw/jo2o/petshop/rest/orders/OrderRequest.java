@@ -1,4 +1,4 @@
-package sk.gw.jo2o.petshop.rest.order;
+package sk.gw.jo2o.petshop.rest.orders;
 
 import java.util.List;
 
