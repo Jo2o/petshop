@@ -24,7 +24,7 @@ class OrderResourceV1 {
     private final AuthService authService;
     private final OrderMapper orderMapper;
     private final OrderService orderService;
-    private final OrderedItemMapper orderedItemMapper;
+    private final OrderItemMapper orderItemMapper;
 
     @GetMapping("/user-orders")
     public List<OrderResponse> getOrdersForUser(@RequestParam long userId) {
@@ -37,7 +37,7 @@ class OrderResourceV1 {
     public ResponseEntity createOrder(@RequestParam long userId, @RequestBody OrderRequest orderRequest) {
         authService.checkRole(ADMIN, USER);
         authService.checkUser(userId);
-        orderService.save(orderedItemMapper.toEntityList(orderRequest), userId);
+        orderService.save(orderItemMapper.toEntityList(orderRequest), userId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

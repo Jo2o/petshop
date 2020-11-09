@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.*;
-import sk.gw.jo2o.petshop.entity.OrderedItem;
 
 @Data
 @Builder
@@ -18,6 +17,6 @@ public class OrderResponse {
 
     private LocalDateTime created;
 
-    private List<OrderedItem> orderedItems;
+    private List<OrderItemResponse> orderedItems;
 
 }

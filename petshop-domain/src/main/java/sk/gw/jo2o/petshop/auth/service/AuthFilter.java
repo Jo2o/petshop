@@ -15,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import sk.gw.jo2o.petshop.exception.PetShopAuthException;
 
 @Slf4j
 public class AuthFilter extends OncePerRequestFilter {
@@ -28,21 +29,16 @@ public class AuthFilter extends OncePerRequestFilter {
     @Override
     @SneakyThrows
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) {
-        try {
-            String jwt = parseJwt(httpServletRequest);
-            if (jwt != null && jwtService.validate(jwt)) {
-                String username = jwtService.getUserNameFromToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-            if (jwt != null && !jwtService.validate(jwt)) {
-                log.error("Invalid token!");
-                return;
-            }
-        } catch (Exception e) {
-            log.error("Cannot set user authentication: ", e);
+        String jwt = parseJwt(httpServletRequest);
+        if (jwt != null && jwtService.validate(jwt)) {
+            String username = jwtService.getUserNameFromToken(jwt);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+        if (jwt != null && !jwtService.validate(jwt)) {
+            throw new PetShopAuthException("Invalid token!");
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }

@@ -46,13 +46,7 @@ public class OrderService {
     }
 
     public List<Order> getUserOrders(long userId) {
-        List<Order> orders = orderRepository.findByUser_Id(userId);
-
-        for (Order order : orders) {
-            List<OrderedItem> items = orderedItemService.findByOrderId(order.getId());
-        }
-
-        return orders;
+        return orderRepository.findByUser_Id(userId);
     }
 
 }

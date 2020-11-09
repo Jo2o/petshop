@@ -12,7 +12,7 @@ import sk.gw.jo2o.petshop.shopping.services.ProductService;
 
 @Service
 @RequiredArgsConstructor
-class OrderedItemMapper {
+class OrderItemMapper {
 
     private final ProductService productService;
 
