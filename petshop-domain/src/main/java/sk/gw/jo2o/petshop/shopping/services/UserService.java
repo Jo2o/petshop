@@ -24,4 +24,8 @@ public class UserService {
                 .orElseThrow(() -> new PetShopNotFoundException("Cannot find user with userId: " + userId));
     }
 
+    public List<User> save(List<User> users) {
+        return userRepository.saveAll(users);
+    }
+
 }
