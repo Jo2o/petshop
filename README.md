@@ -2,7 +2,7 @@
 
 ### Overview
 Demo of a multi-module Maven Spring Boot project using layered architecture.<br/>
-Implementation of a very simple e-shop application selling pet products with REST API with JWT auth.<br/>
+Implementation of a simple e-shop application selling pet products with REST API with JWT auth.<br/>
 
 Technologies used: 
 - [x] Docker
