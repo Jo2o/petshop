@@ -24,19 +24,19 @@ class ProductMapper {
     private final PriceMapper priceMapper;
 
     public Page<ProductResponse> toAdminPageResponse(Page<Product> productsPage) {
-        List<ProductResponse> productRespons = productsPage.getContent().stream()
+        List<ProductResponse> productResponse = productsPage.getContent().stream()
                 .map(this::toAdminResponse)
                 .collect(toList());
 
-        return new PageImpl<>(productRespons, productsPage.getPageable(), productsPage.getTotalPages());
+        return new PageImpl<>(productResponse, productsPage.getPageable(), productsPage.getTotalPages());
     }
 
     public Page<ProductShortResponse> toPublicPageResponse(Page<Product> productsPage) {
-        List<ProductShortResponse> productShortRespons = productsPage.getContent().stream()
+        List<ProductShortResponse> productShortResponse = productsPage.getContent().stream()
                 .map(this::toPublicResponse)
                 .collect(toList());
 
-        return new PageImpl<>(productShortRespons, productsPage.getPageable(), productsPage.getTotalPages());
+        return new PageImpl<>(productShortResponse, productsPage.getPageable(), productsPage.getTotalPages());
     }
 
     public ProductResponse toAdminResponse(Product product) {
